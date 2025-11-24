@@ -19,3 +19,4 @@ This repo intentionally uses older versions of popular packages to trigger Depen
 
 Simple test workflow that always passes to validate bot behavior with passing CI.
  
+  
