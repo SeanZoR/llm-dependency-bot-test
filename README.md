@@ -16,15 +16,68 @@ This test repository validates the bot's ability to:
 The repository includes various dependencies to test different update scenarios:
 
 ### Production Dependencies
-- **axios** `1.6.0` - HTTP client (testing minor version updates)
-- **lodash** `4.17.20` - Utility library (testing patch updates with security considerations)
-- **express** `4.18.0` - Web framework (testing updates to critical dependencies)
-- **react** `18.2.0` - UI library (testing major framework updates)
+
+#### Utility Libraries (LOW RISK)
+- **lodash** `4.17.21` - Utility library (patch updates, security considerations)
+- **uuid** `9.0.0` - UUID generation
+- **date-fns** `2.30.0` - Date manipulation
+- **chalk** `5.2.0` - Terminal styling
+- **moment** `2.29.4` - Date library (DEPRECATED - tests deprecation warnings)
+
+#### HTTP & API (MEDIUM RISK)
+- **axios** `1.6.0` - HTTP client (minor version updates)
+- **swr** `2.2.0` - React hooks for data fetching
+- **graphql** `16.6.0` - GraphQL implementation
+
+#### Web Frameworks (HIGH RISK)
+- **express** `4.18.0` - Web framework (critical dependency)
+- **react** `18.2.0` - UI library (major framework updates)
+- **react-router-dom** `6.14.0` - React routing
+
+#### State Management (MEDIUM RISK)
+- **redux** `4.2.0` - Predictable state container
+- **zustand** `4.3.0` - Modern state management
+
+#### Database & Auth (HIGH RISK - Critical)
+- **pg** `8.11.0` - PostgreSQL driver (database operations)
+- **mongoose** `7.0.0` - MongoDB ORM (breaking changes between majors)
+- **jsonwebtoken** `9.0.0` - JWT authentication (security-critical)
+
+#### Validation & Schema (LOW-MEDIUM RISK)
+- **joi** `17.9.0` - Schema validation
+- **zod** `3.21.0` - TypeScript-first schema validation
+- **dotenv** `16.0.0` - Environment variables
+
+#### Build Tools (MEDIUM-HIGH RISK)
+- **webpack** `5.88.0` - Module bundler (breaking changes)
+- **vite** `4.3.0` - Modern build tool
+- **@babel/core** `7.22.0` - Babel transpiler (coordinated updates)
+- **@babel/preset-env** `7.22.0` - Babel preset (must match core version)
 
 ### Development Dependencies
-- **@types/node** `20.0.0` - TypeScript definitions (testing type-only updates)
-- **@types/express** `4.17.0` - TypeScript definitions
-- **typescript** `5.0.0` - TypeScript compiler (testing toolchain updates)
+
+#### Type Definitions (LOW RISK)
+- **@types/node** `20.17.0` - Node.js types
+- **@types/express** `4.17.0` - Express types
+- **@types/uuid** `9.0.0` - UUID types
+- **@types/react** `18.2.0` - React types
+- **@types/jsonwebtoken** `9.0.0` - JWT types
+
+#### Testing Libraries (LOW RISK)
+- **jest** `29.5.0` - Testing framework
+- **vitest** `0.34.0` - Vite-native test runner
+- **@testing-library/react** `14.0.0` - React testing utilities
+- **@testing-library/jest-dom** `5.16.0` - Jest DOM matchers
+- **@testing-library/user-event** `14.4.0` - User interaction simulation
+
+#### Code Quality (LOW RISK)
+- **typescript** `5.0.4` - TypeScript compiler
+- **eslint** `8.50.0` - Linter
+- **prettier** `3.0.0` - Code formatter
+
+#### Build Tooling (MEDIUM RISK)
+- **babel-loader** `9.1.0` - Webpack Babel loader
+- **@babel/preset-react** `7.22.0` - Babel React preset
 
 ## Test Scenarios
 
@@ -33,30 +86,67 @@ The repository includes various dependencies to test different update scenarios:
 - Minor bug fixes
 - No breaking changes
 - Typically safe to auto-merge if CI passes
+- **Examples:** lodash, uuid, date-fns patch updates
 
 ### 2. Minor Updates (x.X.x)
 **Expected Bot Behavior:** REQUIRE_APPROVAL or AUTO_MERGE (MEDIUM risk)
 - New features added
 - Backward compatible
 - Bot should check release notes for significant changes
+- **Examples:** axios, express, redux minor updates
 
 ### 3. Major Updates (X.x.x)
 **Expected Bot Behavior:** REQUIRE_APPROVAL (HIGH risk)
 - Breaking changes expected
 - Requires human review
 - Bot should flag for careful consideration
+- **Examples:** react, webpack, mongoose major updates
 
 ### 4. Security Updates
 **Expected Bot Behavior:** AUTO_MERGE or REQUIRE_APPROVAL (depends on severity)
 - CVE fixes
 - Should be prioritized
 - Bot checks CVE database for both versions
+- **Examples:** lodash security patches, jsonwebtoken updates
 
 ### 5. Type Definition Updates
 **Expected Bot Behavior:** AUTO_MERGE (LOW risk)
 - @types/* packages
 - No runtime impact
 - Safe to merge with passing CI
+- **Examples:** @types/node, @types/express, @types/react
+
+### 6. Critical Infrastructure Updates (NEW)
+**Expected Bot Behavior:** REQUIRE_APPROVAL (HIGH-CRITICAL risk)
+- Database drivers, authentication libraries
+- High impact if broken
+- Requires thorough testing
+- **Examples:** pg, mongoose, jsonwebtoken
+
+### 7. Monorepo Coordinated Updates (NEW)
+**Expected Bot Behavior:** AUTO_MERGE if all related packages update together (MEDIUM risk)
+- Multiple packages from same ecosystem
+- Should update together for compatibility
+- Bot should recognize coordinated updates
+- **Examples:** @babel/core + @babel/preset-env, @testing-library packages
+
+### 8. Deprecated Package Updates (NEW)
+**Expected Bot Behavior:** REQUIRE_APPROVAL with migration suggestion (MEDIUM risk)
+- Package is marked as deprecated
+- Bot should suggest modern alternatives
+- **Examples:** moment (deprecated, suggest date-fns or dayjs)
+
+### 9. Build Tool Updates (NEW)
+**Expected Bot Behavior:** REQUIRE_APPROVAL (MEDIUM-HIGH risk)
+- Build pipeline changes can break everything
+- Requires local testing before merge
+- **Examples:** webpack, vite, babel-loader
+
+### 10. State Management & Routing Updates (NEW)
+**Expected Bot Behavior:** REQUIRE_APPROVAL for major, AUTO_MERGE for minor (MEDIUM risk)
+- Core application architecture
+- Breaking changes affect entire app
+- **Examples:** redux, zustand, react-router-dom
 
 ## Application Code
 
