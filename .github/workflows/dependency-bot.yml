@@ -1,16 +1,14 @@
 name: LLM Dependency Bot
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
   workflow_run:
     workflows: ["CI"]
     types: [completed]
 
 jobs:
   dependency-bot:
-    # Accept PRs from dependabot OR manual test PRs with 'dependencies' in title
-    if: github.actor == 'dependabot[bot]' || contains(github.event.pull_request.title, 'Bump')
+    # Only run after CI completes successfully
+    if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
 
     permissions:
