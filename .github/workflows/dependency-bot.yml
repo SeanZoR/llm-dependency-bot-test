@@ -9,7 +9,8 @@ on:
 
 jobs:
   dependency-bot:
-    if: github.actor == 'dependabot[bot]'
+    # Accept PRs from dependabot OR manual test PRs with 'dependencies' in title
+    if: github.actor == 'dependabot[bot]' || contains(github.event.pull_request.title, 'Bump')
     runs-on: ubuntu-latest
 
     permissions:
