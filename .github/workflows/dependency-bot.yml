@@ -20,7 +20,8 @@ jobs:
 
     steps:
       - name: Run LLM Dependency Bot
-        uses: SeanZoR/llm-dependency-bot@v1.0.0
+        uses: SeanZoR/llm-dependency-bot@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          skip-author-check: true  # Enable for testing with manual PRs
