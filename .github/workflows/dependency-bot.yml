@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Run LLM Dependency Bot
-        uses: SeanZoR/llm-dependency-bot@e310e26017ca247fdc03c911b0a7271536bfc6e9
+        uses: SeanZoR/llm-dependency-bot@cf4bae4d9aca0a86d2fdd14e7ee8efa0bb4e8dae
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
