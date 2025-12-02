@@ -30,7 +30,7 @@
     "zustand": "4.3.0",
     "graphql": "16.6.0",
     "zod": "3.21.0",
-    "swr": "2.2.0"
+    "swr": "2.3.7"
   },
   "devDependencies": {
     "@types/node": "24.10.1",
